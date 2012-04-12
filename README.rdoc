@@ -1,0 +1,46 @@
+== Algorithms Test
+Used  - gem "win32ole"
+== CONTEXT
+We describe several datastructures used to store data and search for specific values. The task of this exercise is to test the behaviour of these datastructures.
+
+== Implementation
+Attached to this artefact there are implementations of three datastructures used for searching.
+Class UnsortedArray encapsulate ordinary array
+Class SortedArray encapsulate array, which is kept sorted during modifications. All three operations (find, insert, delete) used binary search, moreover class contains also implementation of interpolation search.
+Class BinarySearchTree implements binary search tree. Except search operations there are also implemented two useful functions, to_s and to_svg, the first of which returns "bracketed tree representation" in a string and the second saves the tree into file in SVG (Scalable Vector Graphic) format. This file can be further opened in graphical editor (e.g. Inkscape) or directly in browsers (e.g. Opera or Firefox) and checked the structure of constructed tree.
+
+== Test
+Write unit tests verifying the correctness of the above mentioned implementations. There should be two types of tests.
+Testing on fixed chosen data
+
+Insert suitable chosen data into a tested search data structure and check that after insert operation this structure realy contains corresponding data (similary for search and remove operations). Data may not be larga-scale, but they have to cover all possible situations.
+Testing on random large data structures
+
+Obviously, testing such small data are not sufficient. For this reason test each structure on a larga-scale randomly chosen data. Number of such tests and maximum size of data (number of inserted/searched/removed elements) choose on your own choice.
+
+== Benchmark
+Measure the time consumed by particular operations on search data strucutres of different sizes. For a pair of numbers N, M: (10, 10000), (50, 1000), (100, 500), (500, 50), (1000, 10), (5000, 10) (N express a size of a data structure, M number of repetitions) repeat M-times:
+Insert N randomly chosen values from interval 0 to N - 1 into all three tested data structures with operation insert. Measure time consumed by this operation for each structure separately.
+Search for N randomly chosen values from interval 0 to N - 1 using operation find in all three tested data structures. Measure time consumed by this operation for each structure separately.
+Remove N randomly chosen values from interval 0 to N - 1 from all three tested data structures with operation delete. Measure time consumed by this operation for each structure separately.
+Results will be overall times of M consecutive inserting N elements in three data structures (separately for each), M consecutive searching for N elements in those structures and M consecutive removing of N elements. Keep in mind that computation can take some time.
+For time measurement use module Benchmark. By a direct call of method Benchmark.realtime with passing a block of code to it, we get a time (in seconds) that has been taken to perform passed block. Using can looks approximately:
+
+require "benchmark"
+elapsed = Benchmark.realtime { x.insert(y) }
+
+For all pairs M,N perform 10 measurement and from such time results enumerate an average and a median (for particular algorithms). Enumerate these averages and medians also for values expressing times taken by an operation over one structure of size M (divide these values by M). Moreover enumerate an average and median of number of elements that are contained in structures after performing a block of insert operations (similary for delete). Note that such an operation cannot insert twice same elements into structure, so after N insertions of random numbers it is very probable that a structure does cointain less than N elements (similary delete can try to remove non-existing elements).
+
+== Summary
+Write a report describing your testing  of algorithms and disscus the measured values - what (if anything) results from them, if they match expectations based on the theory from the lectures, and so on. Discuss a suitability of particular structures from various perspectives (number of elements, expected frequency of particular operations, etc.). You can use a template from attachement.
+Certain level of quality is expected. Imagine, for example that this text is to be published as an article somewhere. This report with conclusion and discussion over results will be the main (and almost exclusive) part of the evaluation.
+
+== Notes
+You are expected to submit this:
+The test scripts validating the correctness of the algorithms.
+Script measuring performance of the algorithms.
+The report discussing conclusions about the results (in the ODT format).
+The test scripts have to be properly documented (In particular, the documentation should contain information of how to run them and the expected outputs).
+Althogh this is not a language exercise, the essay is expected to have some level of quality as a formal text, containing minimum gramatical and spelling errors. (Use a spell-checker at least).
+Your computer should not be "busy" while running the tests. In the optimal conditions, no other applications should interfere with the test. Even a music player, that seems to consume almost no resources, sometimes accesses the hard disk to get the data for playback. This takes a barely notable time, however it can dramatically affect the results of measures taking tens or hundreds of miliseconds.
+As already mentioned, the main concern for the evaluation will be put on the final report. However, this does not mean, you can neglect other parts of the task, as for example the time measurement, because incorrectly measured results can lead to false conclusions in a report.
